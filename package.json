@@ -1,22 +1,44 @@
 {
-  "name": "portfolya",
-  "version": "0.1.0",
+  "name": "muhammad-yusuf-portfolio",
+  "version": "1.0.0",
   "private": true,
+  "description": "Professional Full Stack Developer Portfolio showcasing skills, projects, and experience in React, Node.js, TypeScript, and modern web technologies.",
+  "keywords": [
+    "portfolio",
+    "full-stack-developer",
+    "react",
+    "nodejs",
+    "typescript",
+    "web-development",
+    "uzbekistan",
+    "tashkent"
+  ],
+  "author": "Muhammad Yusuf",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build",
+    "export": "next build && next export"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.539.0",
+    "next": "15.4.6",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.4.6"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
+    "@types/node": "^20.19.11",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "cssnano": "^7.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
   }
 }

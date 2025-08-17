@@ -1,4 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Muhammad Yusuf - Full Stack Developer Portfolio
+
+This is a professional portfolio website built with [Next.js](https://nextjs.org) to showcase my skills, projects, and experience as a Full Stack Developer from Tashkent, Uzbekistan.
+
+## 🚀 About Me
+
+I'm Muhammad Yusuf, a passionate Full Stack Developer specializing in:
+- **Frontend**: React, Next.js, TypeScript, Tailwind CSS
+- **Backend**: Node.js, Nest.js, Express.js
+- **Databases**: MongoDB, PostgreSQL, MySQL
+- **Tools**: Git, Docker, AWS, DigitalOcean
+
+## 🛠️ Technologies Used
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Deployment**: Vercel (recommended)
+
+## 📱 Features
+
+- Responsive design for all devices
+- Dark/Light theme toggle
+- Smooth animations and transitions
+- SEO optimized
+- Fast loading performance
+- Contact form functionality
+- Resume download capability
 
 ## Getting Started
 
