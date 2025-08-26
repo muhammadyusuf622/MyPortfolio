@@ -10,6 +10,7 @@ import temurlaneTeach from "../../public/temurlaneTeach.png";
 import mdhHospital from "../../public/mdhHospital.png";
 import hotel from "../../public/hotel.png";
 import Image from "next/image";
+import codeMuseum from '../../public/code museum.png'
 
 export default function ProjectsSection() {
   const projects = [
@@ -162,6 +163,16 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
       github: "https://github.com/muhammadyusuf622/hotel-project2",
       live: "https://hotel-project2-one.vercel.app",
       category: "Frontend",
+    },
+    {
+      title: "Code Museum",
+      description:
+        "Code Museum is a platform designed to share interesting and creative code snippets with others. The project allows developers to showcase unique coding ideas, learn from each other, and build a community around innovative solutions.",
+      image: codeMuseum,
+      tech: ["Node.js", "Nest.js", "Next.js"],
+      github: "https://github.com/TOTEM-ABU/CodeMuseum",
+      live: "https://code-musuem.vercel.app",
+      category: "Full-Stack",
     },
   ];
 
