@@ -11,6 +11,7 @@ import mdhHospital from "../../public/mdhHospital.png";
 import hotel from "../../public/hotel.png";
 import Image from "next/image";
 import codeMuseum from '../../public/code museum.png'
+import dentistImg from '../../public/dentist.png'
 
 export default function ProjectsSection() {
   const projects = [
@@ -173,6 +174,16 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
       github: "https://github.com/TOTEM-ABU/CodeMuseum",
       live: "https://code-musuem.vercel.app",
       category: "Full-Stack",
+    },
+    {
+      title: "Dentist Project",
+      description:
+        "This project enables customers to book dentist appointments in advance, reducing waiting times and ensuring timely access to dental services.",
+      image: dentistImg,
+      tech: ["Next.js"],
+      github: "https://github.com/muhammadyusuf622/dentist-project",
+      live: "https://dentist-project-opal.vercel.app",
+      category: "Frontend",
     },
   ];
 
