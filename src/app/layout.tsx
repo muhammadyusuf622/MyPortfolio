@@ -101,10 +101,12 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Muhammad Yusuf Portfolio" />
-        <link rel="apple-touch-icon" href="/myImg.jpg" />
-        <link rel="icon" type="image/jpeg" href="/myImg.jpg" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
         <link rel="canonical" href="https://muhammad-yusuf.uz" />
-        <meta name="google-site-verification" content="bUpAiFCYkuPvTOOv3-8lCo1_m-AeSRKC9OUASzaW4Rs" />
+        <meta name="google-site-verification" content="pGjS4zQzBTsiXmh_QOqD-NAmW9TH_982Mt-3gTedxGQ" />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <ThemeProvider>
