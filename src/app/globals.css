@@ -22,6 +22,7 @@
   img {
     max-width: 100%;
     height: auto;
+    color: rgb(66, 230, 228);
   }
 
   a {
@@ -74,4 +75,17 @@
   .focus-visible {
     @apply outline-none ring-2 ring-primary-500 ring-offset-2;
   }
+}
+
+
+
+.addUrlBlok {
+  border-bottom: 2px solid rgb(16, 239, 187);
+  display: inline-block;
+  padding: 0px 3px;
+  margin: 0px 4px;
+}
+
+.addUrl {
+  color: rgb(16, 239, 187);
 }

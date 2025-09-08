@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { Github, ExternalLink, Code, Globe, Database } from "lucide-react";
 
@@ -10,11 +9,28 @@ import temurlaneTeach from "../../public/temurlaneTeach.png";
 import mdhHospital from "../../public/mdhHospital.png";
 import hotel from "../../public/hotel.png";
 import Image from "next/image";
-import codeMuseum from '../../public/code museum.png'
-import dentistImg from '../../public/dentist.png'
+import codeMuseum from "../../public/code museum.png";
+import dentistImg from "../../public/dentist.png";
+import news24Img from "../../public/news24.png";
+
+interface AddUrl {
+  href: string;
+  title: string;
+}
+
+interface IProject {
+  title: string;
+  description: string;
+  image: string;
+  tech: string[];
+  github: string;
+  live: string;
+  category: string;
+  addUrl?: AddUrl[];
+}
 
 export default function ProjectsSection() {
-  const projects = [
+  const projects: IProject[] = [
     {
       title: "LingoStep",
       description:
@@ -157,10 +173,19 @@ export default function ProjectsSection() {
        schedules, set their preferred cleaning times, order meals, and submit complaints online. They can also view their check-out time and manage their stay conveniently.
 The Admin Panel allows hotel administrators to monitor
  room status, track daily revenue, oversee guest check-ins and check-outs, and view detailed statistics on room usage and customer activity.
-The Director Panel provides a higher-level oversight, enabling directors to manage all branches, add or remove staff, control admin access, track branch revenues, monitor customer and employee status, and maintain complete operational control across the hotel chain.
-  | "To enter" /admin  /derector`,
+The Director Panel provides a higher-level oversight, enabling directors to manage all branches, add or remove staff, control admin access, track branch revenues, monitor customer and employee status, and maintain complete operational control across the hotel chain`,
       image: hotel.src,
       tech: ["Next.js", "Typescript", "Ant Design"],
+      addUrl: [
+        {
+          href: "https://hotel-project2-one.vercel.app/admin",
+          title: "Admin Page",
+        },
+        {
+          href: "https://hotel-project2-one.vercel.app/derector",
+          title: "Derector Page",
+        },
+      ],
       github: "https://github.com/muhammadyusuf622/hotel-project2",
       live: "https://hotel-project2-one.vercel.app",
       category: "Frontend",
@@ -169,7 +194,7 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
       title: "Code Museum",
       description:
         "Code Museum is a platform designed to share interesting and creative code snippets with others. The project allows developers to showcase unique coding ideas, learn from each other, and build a community around innovative solutions.",
-      image: codeMuseum,
+      image: codeMuseum.src,
       tech: ["Node.js", "Nest.js", "Next.js"],
       github: "https://github.com/TOTEM-ABU/CodeMuseum",
       live: "https://code-musuem.vercel.app",
@@ -177,13 +202,44 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
     },
     {
       title: "Dentist Project",
-      description:
-        "This project enables customers to book dentist appointments in advance, reducing waiting times and ensuring timely access to dental services.",
-      image: dentistImg,
+      description: `This project enables customers to book dentist appointments in advance, reducing waiting times and ensuring timely access to dental services.`,
+      image: dentistImg.src,
       tech: ["Next.js"],
+      addUrl: [
+        {
+          href: "https://dentist-project-opal.vercel.app/doctor",
+          title: "Doctors Landing Page",
+        },
+      ],
       github: "https://github.com/muhammadyusuf622/dentist-project",
       live: "https://dentist-project-opal.vercel.app",
       category: "Frontend",
+    },
+    {
+      title: "The News 24",
+      description:
+        "Stay informed with News24, the leading source for breaking news from around the world and your country. Get breaking news, in-depth reports and real-time updates on politics, business, technology, sports and more",
+      image: news24Img.src,
+      tech: [
+        "Node.js",
+        "TypeScript",
+        "Nest.js",
+        "Next.js",
+        "Redux Toolkit",
+        "react-redux",
+        "react-query",
+        "tanstack/react-query",
+        "animate.css",
+        "lucide-react",
+        "passport.js",
+        "schedule",
+        "swagger",
+        "prisma",
+        "bcryptjs",
+      ],
+      github: "https://github.com/news24-project",
+      live: "https://googlenews24.vercel.app/",
+      category: "Full Stack",
     },
   ];
 
@@ -256,11 +312,28 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
                 {project.description}
               </p>
 
+                {project.addUrl && project.addUrl.length > 0 && (
+                  <div className="mb-8">
+                    {project.addUrl.map((item, index) => (
+                      <div key={item.href + index} className="addUrlBlok">
+                        <a
+                          className="addUrl"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={item.href}
+                        >
+                          {item.title}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
               {/* Tech Stack */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tech.map((tech) => (
+              <div className={`flex flex-wrap gap-2 mb-6`}>
+                {project.tech?.map((tech, index) => (
                   <span
-                    key={tech}
+                    key={tech + index}
                     className="px-2 py-1 bg-dark-100 dark:bg-dark-700 text-dark-600 dark:text-dark-400 text-xs rounded-md"
                   >
                     {tech}

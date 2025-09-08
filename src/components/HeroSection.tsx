@@ -24,7 +24,7 @@ export default function HeroSection() {
       <div className="text-center max-w-4xl mx-auto">
         {/* Name */}
         <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-          Muhammad Yusuf
+          Muhammad Yusuf Nasrulloh
         </h1>
 
         {/* Title */}
