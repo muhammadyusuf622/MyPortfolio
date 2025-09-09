@@ -112,7 +112,7 @@ export default function RootLayout({
         />
         <meta
           name="apple-mobile-web-app-title"
-          content="Muhammad Yusuf Portfolio"
+          content="Muhammad Yusuf Nasrulloh"
         />
         <link
           rel="icon"
