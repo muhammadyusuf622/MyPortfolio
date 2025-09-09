@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: "Muhammad Yusuf - Full Stack Developer Portfolio",
     description:
       "Professional Full Stack Developer specializing in React, Node.js, TypeScript, and modern web technologies.",
-    images: ["/myImg.jpg"],
+    images: ["https://www.muhammad-yusuf.uz/myImg.jpg"],
   },
   robots: {
     index: true,
@@ -106,6 +106,10 @@ export default function RootLayout({
         />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta
+          name="twitter:image"
+          content="https://www.muhammad-yusuf.uz/myImg.jpg"
+        />
         <meta
           name="apple-mobile-web-app-title"
           content="Muhammad Yusuf Portfolio"
