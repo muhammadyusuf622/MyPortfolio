@@ -5,9 +5,9 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 
 
 export const metadata: Metadata = {
-  title: "Muhammad Yusuf - Full Stack Developer | Portfolio",
+  title: "Muhammad Yusuf Nasrulloh - Full Stack Developer | Portfolio",
   description:
-    "Muhammad Yusuf - Professional Full Stack Developer from Tashkent, Uzbekistan. Expert in React, Node.js, TypeScript, and modern web technologies. View my projects, skills, and experience.",
+    "Muhammad Yusuf Nasrulloh - Professional Full Stack Developer from Tashkent, Uzbekistan. Expert in React, Node.js, TypeScript, and modern web technologies. View my projects, skills, and experience.",
   icons: {
     icon: [
       { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Muhammad Yusuf - Full Stack Developer Portfolio",
+    title: "Muhammad Yusuf Nasrulloh - Full Stack Developer Portfolio",
     description:
       "Professional Full Stack Developer specializing in React, Node.js, TypeScript, and modern web technologies. Based in Tashkent, Uzbekistan.",
     url: "https://muhammad-yusuf.uz",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
         url: "/myImg.jpg",
         width: 1200,
         height: 630,
-        alt: "Muhammad Yusuf - Full Stack Developer",
+        alt: "Muhammad Yusuf Nasrulloh - Full Stack Developer",
       },
     ],
     locale: "en_US",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Yusuf - Full Stack Developer Portfolio",
+    title: "Muhammad Yusuf Nasrulloh - Full Stack Developer Portfolio",
     description:
       "Professional Full Stack Developer specializing in React, Node.js, TypeScript, and modern web technologies.",
     images: ["https://www.muhammad-yusuf.uz/myImg.jpg"],
