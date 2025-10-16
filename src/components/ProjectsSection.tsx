@@ -12,6 +12,8 @@ import Image from "next/image";
 import codeMuseum from "../../public/code museum.png";
 import dentistImg from "../../public/dentist.png";
 import news24Img from "../../public/news24.png";
+import asiGlobalIt from "../../public/project/asiglobalit.png";
+import moviesCool from '../../public/project/moviescool.png';
 
 interface AddUrl {
   href: string;
@@ -29,7 +31,52 @@ interface IProject {
   addUrl?: AddUrl[];
 }
 
+interface IAppProject {
+  title: string;
+  description: string;
+  image: string;
+  tech: string[];
+  github: string;
+  live: string;
+  category: string;
+  addUrl?: AddUrl[];
+}
+
 export default function ProjectsSection() {
+
+
+  const appProjects: IAppProject[] = [
+    {
+      title: "Movies Cool",
+      description:
+        "Movies Cool is your ultimate destination for movie lovers. Discover the latest films, watch official trailers, and explore detailed information about your favorite movies. With a powerful search feature, you can easily find any film you’re looking for. Stay up to date with the newest releases, save movies to your personal list, and never miss out on what’s trending in the world of cinema",
+      image: moviesCool.src,
+      tech: [
+        "JavaScript",
+        "Node.js",
+        "Nest.js",
+        "Parcel",
+        "MongoDB",
+        "crypto-js",
+        "socket.io - client",
+        "axios",
+        "jwt",
+        "Passport.js",
+        "socket.io",
+        "schedule",
+        "swagger",
+        "websockets",
+        "prisma",
+        "cookie-parser",
+        "telegraf",
+        "prettier",
+      ],
+      github: "https://github.com/muhammadyusuf622",
+      live: "https://expo.dev/artifacts/eas/5GTWBmQM75NkSgyjg9Aegb.apk",
+      category: "Full Stack",
+    },
+  ];
+
   const projects: IProject[] = [
     {
       title: "LingoStep",
@@ -241,6 +288,28 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
       live: "https://googlenews24.vercel.app/",
       category: "Full Stack",
     },
+    {
+      title: "ASI Global IT",
+      description:
+        "ASI Global is a leading IT solutions, web and mobile applications, business automation, and tech consulting service. It offers competitive solutions with innovative products and a qualified team",
+      image: asiGlobalIt.src,
+      tech: [
+        "Node.js",
+        "TypeScript",
+        "Next.js",
+        "Tailwindcss",
+        "shadcn/UI",
+        "framer-motion",
+        "swiper",
+        "tailwind-merge",
+        "animate.css",
+        "lucide-react",
+        "class-variance-authority",
+      ],
+      github: "https://github.com/webgrade-company/germany-company",
+      live: "https://asiglobalit.com/",
+      category: "Frontend",
+    },
   ];
 
   const getCategoryIcon = (category: string) => {
@@ -312,22 +381,123 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
                 {project.description}
               </p>
 
-                {project.addUrl && project.addUrl.length > 0 && (
-                  <div className="mb-8">
-                    {project.addUrl.map((item, index) => (
-                      <div key={item.href + index} className="addUrlBlok">
-                        <a
-                          className="addUrl"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={item.href}
-                        >
-                          {item.title}
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                )}
+              {project.addUrl && project.addUrl.length > 0 && (
+                <div className="mb-8">
+                  {project.addUrl.map((item, index) => (
+                    <div key={item.href + index} className="addUrlBlok">
+                      <a
+                        className="addUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={item.href}
+                      >
+                        {item.title}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Tech Stack */}
+              <div className={`flex flex-wrap gap-2 mb-6`}>
+                {project.tech?.map((tech, index) => (
+                  <span
+                    key={tech + index}
+                    className="px-2 py-1 bg-dark-100 dark:bg-dark-700 text-dark-600 dark:text-dark-400 text-xs rounded-md"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Project Links */}
+              <div className="flex gap-3">
+                <motion.a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-dark-100 dark:bg-dark-700 text-dark-700 dark:text-dark-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-medium"
+                >
+                  <Github size={16} />
+                  Code
+                </motion.a>
+
+                <motion.a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 text-sm font-medium"
+                >
+                  <ExternalLink size={16} />
+                  Live Demo
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <br />
+      <h2 className="text-4xl text-center font-bold">APP Projects</h2>
+      <br />
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {appProjects.map((project, index) => (
+          <motion.div
+            key={project.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            className="group bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            {/* Project Image */}
+            <div className="w-full relative overflow-hidden h-48">
+              <Image
+                src={project.image}
+                alt={`${project.title} project image`}
+                width={300}
+                height={800}
+                className="object-cover mx-auto transition-transform duration-300 group-hover:scale-110"
+              />
+              <div className="absolute top-4 right-4">
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-primary-200 dark:bg-primary-900/80 text-primary-900 dark:text-primary-300">
+                  {getCategoryIcon(project.category)}
+                  {project.category}
+                </span>
+              </div>
+            </div>
+
+            {/* Project Content */}
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-dark-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+                {project.title}
+              </h3>
+
+              <p className="text-dark-600 dark:text-dark-400 text-sm leading-relaxed mb-4">
+                {project.description}
+              </p>
+
+              {project.addUrl && project.addUrl.length > 0 && (
+                <div className="mb-8">
+                  {project.addUrl.map((item, index) => (
+                    <div key={item.href + index} className="addUrlBlok">
+                      <a
+                        className="addUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={item.href}
+                      >
+                        {item.title}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Tech Stack */}
               <div className={`flex flex-wrap gap-2 mb-6`}>
