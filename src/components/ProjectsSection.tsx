@@ -52,6 +52,7 @@ export default function ProjectsSection() {
         "Movies Cool is your ultimate destination for movie lovers. Discover the latest films, watch official trailers, and explore detailed information about your favorite movies. With a powerful search feature, you can easily find any film you’re looking for. Stay up to date with the newest releases, save movies to your personal list, and never miss out on what’s trending in the world of cinema",
       image: moviesCool.src,
       tech: [
+        "React Native",
         "JavaScript",
         "Node.js",
         "Nest.js",
