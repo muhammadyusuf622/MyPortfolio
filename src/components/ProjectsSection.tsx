@@ -53,10 +53,6 @@ export default function ProjectsSection() {
       image: moviesCool.src,
       tech: [
         "React Native",
-        "JavaScript",
-        "Node.js",
-        "Nest.js",
-        "Parcel",
         "MongoDB",
         "crypto-js",
         "socket.io - client",
@@ -128,7 +124,7 @@ export default function ProjectsSection() {
         "React Redux",
       ],
       github: "https://github.com/muhammadyusuf622/the-weather-project",
-      live: "https://the-weather-project-vercel.vercel.app",
+      live: "https://the-weather-project-pi.vercel.app",
       category: "Frontend",
     },
     {
