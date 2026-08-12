@@ -13,7 +13,10 @@ import codeMuseum from "../../public/code museum.png";
 import dentistImg from "../../public/dentist.png";
 import news24Img from "../../public/news24.png";
 import asiGlobalIt from "../../public/project/asiglobalit.png";
-import moviesCool from '../../public/project/moviescool.png';
+import moviesCool from "../../public/project/moviescool.png";
+import ezguide from "../../public/project/ezguide.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface AddUrl {
   href: string;
@@ -25,27 +28,172 @@ interface IProject {
   description: string;
   image: string;
   tech: string[];
-  github: string;
+  github?: string;
   live: string;
   category: string;
   addUrl?: AddUrl[];
 }
 
-interface IAppProject {
-  title: string;
-  description: string;
-  image: string;
-  tech: string[];
-  github: string;
-  live: string;
-  category: string;
-  addUrl?: AddUrl[];
+function getCategoryIcon(category: string) {
+  switch (category) {
+    case "Full Stack":
+      return <Code size={16} />;
+    case "Frontend":
+      return <Globe size={16} />;
+    case "Backend":
+      return <Database size={16} />;
+    default:
+      return <Code size={16} />;
+  }
+}
+
+type ProjectCardProps = {
+  project: IProject;
+  index: number;
+  imageMode: "fill" | "fixed";
+  onMissingGithub: (title: string) => void;
+};
+
+function ProjectCard({
+  project,
+  index,
+  imageMode,
+  onMissingGithub,
+}: ProjectCardProps) {
+  const hasGithub = Boolean(project.github);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      className="group bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+    >
+      {/* Project Image */}
+      <div
+        className={
+          imageMode === "fixed"
+            ? "relative overflow-hidden h-48 w-full"
+            : "relative overflow-hidden h-48"
+        }
+      >
+        {imageMode === "fill" ? (
+          <Image
+            src={project.image}
+            alt={`${project.title} project image`}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-110"
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={`${project.title} project image`}
+            width={300}
+            height={800}
+            className="object-cover mx-auto transition-transform duration-300 group-hover:scale-110"
+          />
+        )}
+        <div className="absolute top-4 right-4">
+          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-primary-200 dark:bg-primary-900/80 text-primary-900 dark:text-primary-300">
+            {getCategoryIcon(project.category)}
+            {project.category}
+          </span>
+        </div>
+      </div>
+
+      {/* Project Content */}
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-dark-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+          {project.title}
+        </h3>
+
+        <p className="text-dark-600 dark:text-dark-400 text-sm leading-relaxed mb-4">
+          {project.description}
+        </p>
+
+        {project.addUrl && project.addUrl.length > 0 && (
+          <div className="mb-8">
+            {project.addUrl.map((item, i) => (
+              <div key={item.href + i} className="addUrlBlok">
+                <a
+                  className="addUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={item.href}
+                >
+                  {item.title}
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.tech?.map((tech, i) => (
+            <span
+              key={tech + i}
+              className="px-2 py-1 bg-dark-100 dark:bg-dark-700 text-dark-600 dark:text-dark-400 text-xs rounded-md"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        {/* Project Links */}
+        <div className="flex gap-3">
+          {hasGithub ? (
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-dark-100 dark:bg-dark-700 text-dark-700 dark:text-dark-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-medium"
+            >
+              <Github size={16} />
+              Code
+            </motion.a>
+          ) : (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onMissingGithub(project.title);
+              }}
+              aria-label={`${project.title} source code is not accessible`}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-dark-100 dark:bg-dark-700 text-dark-700 dark:text-dark-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-medium"
+            >
+              <Github size={16} />
+              Code
+            </button>
+          )}
+
+          <motion.a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 text-sm font-medium"
+          >
+            <ExternalLink size={16} />
+            Live Demo
+          </motion.a>
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
 export default function ProjectsSection() {
+  const notifyMissingGithub = (title: string) => {
+    toast.warn(`Sorry, the source code for "${title}" is not accessible.`);
+  };
 
-
-  const appProjects: IAppProject[] = [
+  const appProjects: IProject[] = [
     {
       title: "Movies Cool",
       description:
@@ -75,6 +223,31 @@ export default function ProjectsSection() {
   ];
 
   const projects: IProject[] = [
+    {
+      title: "Ezguide",
+      description:
+        "An online learning platform offering structured courses, with certificates awarded upon successful completion of each course. Access to the platform is restricted and requires an authorized email and password provided by an administrator",
+      image: ezguide.src,
+      tech: [
+        "JavaScript",
+        "Node.js",
+        "Nest.js",
+        "NextJs",
+        "Stripe",
+        "MongoDB",
+        "pdf-kit",
+        "Cron-job",
+        "shadcn/ui",
+        "axios",
+        "jwt",
+        "swagger",
+        "schedule",
+        "cookie-parser",
+      ],
+      live: "https://ezguide.io/",
+      category: "Full Stack",
+    },
+
     {
       title: "LingoStep",
       description:
@@ -309,19 +482,6 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
     },
   ];
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case "Full Stack":
-        return <Code size={16} />;
-      case "Frontend":
-        return <Globe size={16} />;
-      case "Backend":
-        return <Database size={16} />;
-      default:
-        return <Code size={16} />;
-    }
-  };
-
   return (
     <div className="container-custom">
       <motion.div
@@ -344,97 +504,13 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
-          <motion.div
+          <ProjectCard
             key={project.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="group bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-          >
-            {/* Project Image */}
-            <div className="relative overflow-hidden h-48">
-              <Image
-                src={project.image}
-                alt={`${project.title} project image`}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute top-4 right-4">
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-primary-200 dark:bg-primary-900/80 text-primary-900 dark:text-primary-300">
-                  {getCategoryIcon(project.category)}
-                  {project.category}
-                </span>
-              </div>
-            </div>
-
-            {/* Project Content */}
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-dark-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
-                {project.title}
-              </h3>
-
-              <p className="text-dark-600 dark:text-dark-400 text-sm leading-relaxed mb-4">
-                {project.description}
-              </p>
-
-              {project.addUrl && project.addUrl.length > 0 && (
-                <div className="mb-8">
-                  {project.addUrl.map((item, index) => (
-                    <div key={item.href + index} className="addUrlBlok">
-                      <a
-                        className="addUrl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={item.href}
-                      >
-                        {item.title}
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Tech Stack */}
-              <div className={`flex flex-wrap gap-2 mb-6`}>
-                {project.tech?.map((tech, index) => (
-                  <span
-                    key={tech + index}
-                    className="px-2 py-1 bg-dark-100 dark:bg-dark-700 text-dark-600 dark:text-dark-400 text-xs rounded-md"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Project Links */}
-              <div className="flex gap-3">
-                <motion.a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-dark-100 dark:bg-dark-700 text-dark-700 dark:text-dark-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-medium"
-                >
-                  <Github size={16} />
-                  Code
-                </motion.a>
-
-                <motion.a
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 text-sm font-medium"
-                >
-                  <ExternalLink size={16} />
-                  Live Demo
-                </motion.a>
-              </div>
-            </div>
-          </motion.div>
+            project={project}
+            index={index}
+            imageMode="fill"
+            onMissingGithub={notifyMissingGithub}
+          />
         ))}
       </div>
 
@@ -444,98 +520,13 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {appProjects.map((project, index) => (
-          <motion.div
+          <ProjectCard
             key={project.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="group bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-          >
-            {/* Project Image */}
-            <div className="w-full relative overflow-hidden h-48">
-              <Image
-                src={project.image}
-                alt={`${project.title} project image`}
-                width={300}
-                height={800}
-                className="object-cover mx-auto transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute top-4 right-4">
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-primary-200 dark:bg-primary-900/80 text-primary-900 dark:text-primary-300">
-                  {getCategoryIcon(project.category)}
-                  {project.category}
-                </span>
-              </div>
-            </div>
-
-            {/* Project Content */}
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-dark-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
-                {project.title}
-              </h3>
-
-              <p className="text-dark-600 dark:text-dark-400 text-sm leading-relaxed mb-4">
-                {project.description}
-              </p>
-
-              {project.addUrl && project.addUrl.length > 0 && (
-                <div className="mb-8">
-                  {project.addUrl.map((item, index) => (
-                    <div key={item.href + index} className="addUrlBlok">
-                      <a
-                        className="addUrl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={item.href}
-                      >
-                        {item.title}
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Tech Stack */}
-              <div className={`flex flex-wrap gap-2 mb-6`}>
-                {project.tech?.map((tech, index) => (
-                  <span
-                    key={tech + index}
-                    className="px-2 py-1 bg-dark-100 dark:bg-dark-700 text-dark-600 dark:text-dark-400 text-xs rounded-md"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Project Links */}
-              <div className="flex gap-3">
-                <motion.a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-dark-100 dark:bg-dark-700 text-dark-700 dark:text-dark-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-medium"
-                >
-                  <Github size={16} />
-                  Code
-                </motion.a>
-
-                <motion.a
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 text-sm font-medium"
-                >
-                  <ExternalLink size={16} />
-                  Live Demo
-                </motion.a>
-              </div>
-            </div>
-          </motion.div>
+            project={project}
+            index={index}
+            imageMode="fixed"
+            onMissingGithub={notifyMissingGithub}
+          />
         ))}
       </div>
 
@@ -559,6 +550,17 @@ The Director Panel provides a higher-level oversight, enabling directors to mana
           View More on GitHub
         </motion.a>
       </motion.div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3500}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="colored"
+        style={{ top: "5.5rem" }}
+      />
     </div>
   );
 }

@@ -1,7 +1,20 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { ThemeProvider } from "@/components/ThemeProvider";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
 
 
 export const metadata: Metadata = {
@@ -70,7 +83,7 @@ export const metadata: Metadata = {
     title: "Muhammad Yusuf Nasrulloh - Full Stack Developer Portfolio",
     description:
       "Professional Full Stack Developer specializing in React, Node.js, TypeScript, and modern web technologies.",
-    images: ["https://www.muhammad-yusuf.uz/myImg.jpg"],
+    images: ["https://muhammad-yusuf.uz/myImg.jpg"],
   },
   robots: {
     index: true,
@@ -95,8 +108,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.add("dark");}}catch(e){}})();`,
+          }}
+        />
         <link rel="manifest" href="/favicon/site.webmanifest" />
         <meta name="theme-color" content="#3b82f6" />
         <meta name="author" content="Muhammad Yusuf Nasrulloh" />
@@ -108,7 +130,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta
           name="twitter:image"
-          content="https://www.muhammad-yusuf.uz/myImg.jpg"
+          content="https://muhammad-yusuf.uz/myImg.jpg"
         />
         <meta
           name="apple-mobile-web-app-title"
