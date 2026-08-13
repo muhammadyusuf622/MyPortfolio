@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
@@ -172,10 +174,13 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased" suppressHydrationWarning>
-        <ThemeProvider>
-          <Navigation />
-          <main className="min-h-screen">{children}</main>
-        </ThemeProvider>
+        <MotionConfig reducedMotion="user">
+          <ThemeProvider>
+            <Navigation />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </MotionConfig>
       </body>
     </html>
   );

@@ -37,6 +37,15 @@ module.exports = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
       },
+      letterSpacing: {
+        tightest: "-0.03em",
+      },
+      boxShadow: {
+        soft: "0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 1px rgba(15, 23, 42, 0.03)",
+        card: "0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04)",
+        "card-hover":
+          "0 8px 24px -6px rgba(15, 23, 42, 0.10), 0 2px 6px rgba(15, 23, 42, 0.06)",
+      },
       animation: {
         "fade-in": "fadeIn 0.5s ease-in-out",
         "slide-up": "slideUp 0.5s ease-out",

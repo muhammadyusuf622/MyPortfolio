@@ -1,6 +1,8 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { Github, ExternalLink, Code, Globe, Database } from "lucide-react";
+import { Github, ExternalLink, Download } from "lucide-react";
+import Image, { type StaticImageData } from "next/image";
 
 import lingiStepImg from "../../public/lingostep.png";
 import weatherImg from "../../public/weather.png";
@@ -8,559 +10,339 @@ import twittingImg from "../../public/iwitting1.jpeg";
 import temurlaneTeach from "../../public/temurlaneTeach.png";
 import mdhHospital from "../../public/mdhHospital.png";
 import hotel from "../../public/hotel.png";
-import Image from "next/image";
 import codeMuseum from "../../public/code museum.png";
 import dentistImg from "../../public/dentist.png";
 import news24Img from "../../public/news24.png";
 import asiGlobalIt from "../../public/project/asiglobalit.png";
 import moviesCool from "../../public/project/moviescool.png";
 import ezguide from "../../public/project/ezguide.png";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 interface AddUrl {
   href: string;
   title: string;
 }
 
-interface IProject {
+interface Project {
   title: string;
   description: string;
-  image: string;
+  image: StaticImageData;
   tech: string[];
   github?: string;
-  live: string;
-  category: string;
+  live?: string;
+  liveLabel?: string;
   addUrl?: AddUrl[];
 }
 
-function getCategoryIcon(category: string) {
-  switch (category) {
-    case "Full Stack":
-      return <Code size={16} />;
-    case "Frontend":
-      return <Globe size={16} />;
-    case "Backend":
-      return <Database size={16} />;
-    default:
-      return <Code size={16} />;
-  }
+const featuredProjects: Project[] = [
+  {
+    title: "Hotel",
+    description:
+      "A hotel management platform for guests and staff. Guests can book rooms, order meals, and track checkout status, while dedicated Admin and Director panels give staff real-time visibility into room status, revenue, and multi-branch operations.",
+    image: hotel,
+    tech: ["Next.js", "TypeScript", "Ant Design"],
+    github: "https://github.com/muhammadyusuf622/hotel-project2",
+    live: "https://hotel-project2-one.vercel.app",
+    addUrl: [
+      { href: "https://hotel-project2-one.vercel.app/admin", title: "Admin panel" },
+      { href: "https://hotel-project2-one.vercel.app/derector", title: "Director panel" },
+    ],
+  },
+  {
+    title: "Ezguide",
+    description:
+      "A structured online learning platform with course certificates, Stripe-powered payments, and admin-controlled enrollment. Access is restricted to authorized accounts provisioned by an administrator.",
+    image: ezguide,
+    tech: ["Next.js", "Nest.js", "Stripe", "MongoDB", "shadcn/ui"],
+    live: "https://ezguide.io/",
+  },
+  {
+    title: "MDH Hospital",
+    description:
+      "A healthcare platform that lets patients book doctor appointments, track their queue status in real time, and trigger a one-tap emergency call for urgent assistance.",
+    image: mdhHospital,
+    tech: ["React", "Nest.js", "TypeScript", "PostgreSQL", "Prisma"],
+    github: "https://github.com/muhammadyusuf622/MDH-Hospital",
+  },
+  {
+    title: "LingoStep",
+    description:
+      "An English-learning platform combining live video-chat practice, public chat rooms, book-based typing exercises, and quizzes.",
+    image: lingiStepImg,
+    tech: ["Nest.js", "MongoDB", "Socket.io", "JWT"],
+    github: "https://github.com/muhammadyusuf622/LingoStep",
+    live: "https://lingostep.uz",
+  },
+];
+
+const moreProjects: Project[] = [
+  {
+    title: "The Weather",
+    description:
+      "5-day forecasts with backgrounds that shift by time of day and season.",
+    image: weatherImg,
+    tech: ["React", "TypeScript", "Vite", "Redux Toolkit"],
+    github: "https://github.com/muhammadyusuf622/the-weather-project",
+    live: "https://the-weather-project-pi.vercel.app",
+  },
+  {
+    title: "Twitting",
+    description:
+      "A Twitter-style social platform with likes, saved posts, short videos, and real-time comments.",
+    image: twittingImg,
+    tech: ["Express.js", "MongoDB", "Socket.io"],
+    github: "https://github.com/muhammadyusuf622/Twitting-project",
+    live: "https://twitting.uz",
+  },
+  {
+    title: "Movies Cool",
+    description:
+      "A React Native app for discovering movies, watching trailers, and tracking a personal watchlist.",
+    image: moviesCool,
+    tech: ["React Native", "Nest.js", "MongoDB", "Socket.io"],
+    github: "https://github.com/muhammadyusuf622",
+    live: "https://expo.dev/artifacts/eas/5GTWBmQM75NkSgyjg9Aegb.apk",
+    liveLabel: "Download APK",
+  },
+  {
+    title: "The News 24",
+    description:
+      "A breaking-news platform with real-time updates across politics, business, and sports.",
+    image: news24Img,
+    tech: ["Nest.js", "Next.js", "Redux Toolkit"],
+    github: "https://github.com/news24-project",
+    live: "https://googlenews24.vercel.app/",
+  },
+  {
+    title: "ASI Global IT",
+    description:
+      "A marketing site for an IT consulting company offering web, mobile, and automation services.",
+    image: asiGlobalIt,
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    github: "https://github.com/webgrade-company/germany-company",
+    live: "https://asiglobalit.com/",
+  },
+  {
+    title: "Code Museum",
+    description:
+      "A platform for sharing and discovering interesting code snippets with other developers.",
+    image: codeMuseum,
+    tech: ["Node.js", "Nest.js", "Next.js"],
+    github: "https://github.com/TOTEM-ABU/CodeMuseum",
+    live: "https://code-musuem.vercel.app",
+  },
+  {
+    title: "Dentist Project",
+    description:
+      "Lets patients book dentist appointments in advance to cut down on waiting times.",
+    image: dentistImg,
+    tech: ["Next.js"],
+    github: "https://github.com/muhammadyusuf622/dentist-project",
+    live: "https://dentist-project-opal.vercel.app",
+    addUrl: [
+      {
+        href: "https://dentist-project-opal.vercel.app/doctor",
+        title: "Doctor landing page",
+      },
+    ],
+  },
+  {
+    title: "Tamerlane Teach",
+    description:
+      "An online learning platform where users can create, share, and watch free courses.",
+    image: temurlaneTeach,
+    tech: ["Node.js", "Express", "MongoDB"],
+    github: "https://github.com/muhammadyusuf622/online-course-project",
+  },
+];
+
+function ProjectLinks({ project }: { project: Project }) {
+  return (
+    <div className="flex flex-wrap items-center gap-4">
+      {project.github && (
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="focus-ring inline-flex items-center gap-1.5 text-sm font-medium text-dark-600 dark:text-dark-400 hover:text-dark-900 dark:hover:text-white transition-colors"
+        >
+          <Github size={16} />
+          Code
+        </a>
+      )}
+      {project.live && (
+        <a
+          href={project.live}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="focus-ring inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+        >
+          {project.liveLabel === "Download APK" ? (
+            <Download size={16} />
+          ) : (
+            <ExternalLink size={16} />
+          )}
+          {project.liveLabel ?? "Live Demo"}
+        </a>
+      )}
+      {project.addUrl?.map((item) => (
+        <a
+          key={item.href}
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-project-link text-sm"
+        >
+          {item.title}
+        </a>
+      ))}
+    </div>
+  );
 }
 
-type ProjectCardProps = {
-  project: IProject;
-  index: number;
-  imageMode: "fill" | "fixed";
-  onMissingGithub: (title: string) => void;
-};
-
-function ProjectCard({
+function FeaturedProject({
   project,
   index,
-  imageMode,
-  onMissingGithub,
-}: ProjectCardProps) {
-  const hasGithub = Boolean(project.github);
+}: {
+  project: Project;
+  index: number;
+}) {
+  const reversed = index % 2 === 1;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      className="group bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-80px" }}
+      className={`grid lg:grid-cols-2 gap-8 lg:gap-14 items-center ${
+        reversed ? "lg:[&>*:first-child]:order-2" : ""
+      }`}
     >
-      {/* Project Image */}
-      <div
-        className={
-          imageMode === "fixed"
-            ? "relative overflow-hidden h-48 w-full"
-            : "relative overflow-hidden h-48"
-        }
-      >
-        {imageMode === "fill" ? (
-          <Image
-            src={project.image}
-            alt={`${project.title} project image`}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
-          />
-        ) : (
-          <Image
-            src={project.image}
-            alt={`${project.title} project image`}
-            width={300}
-            height={800}
-            className="object-cover mx-auto transition-transform duration-300 group-hover:scale-110"
-          />
-        )}
-        <div className="absolute top-4 right-4">
-          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-primary-200 dark:bg-primary-900/80 text-primary-900 dark:text-primary-300">
-            {getCategoryIcon(project.category)}
-            {project.category}
-          </span>
-        </div>
+      <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-dark-200 dark:border-dark-700 shadow-card">
+        <Image
+          src={project.image}
+          alt={`${project.title} — screenshot`}
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover"
+        />
       </div>
 
-      {/* Project Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-dark-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+      <div>
+        <h3 className="text-2xl font-semibold tracking-tight text-dark-900 dark:text-white">
           {project.title}
         </h3>
-
-        <p className="text-dark-600 dark:text-dark-400 text-sm leading-relaxed mb-4">
+        <p className="mt-4 text-dark-600 dark:text-dark-400 leading-relaxed">
           {project.description}
         </p>
-
-        {project.addUrl && project.addUrl.length > 0 && (
-          <div className="mb-8">
-            {project.addUrl.map((item, i) => (
-              <div key={item.href + i} className="addUrlBlok">
-                <a
-                  className="addUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={item.href}
-                >
-                  {item.title}
-                </a>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {project.tech?.map((tech, i) => (
-            <span
-              key={tech + i}
-              className="px-2 py-1 bg-dark-100 dark:bg-dark-700 text-dark-600 dark:text-dark-400 text-xs rounded-md"
-            >
+        <div className="mt-5 flex flex-wrap gap-2">
+          {project.tech.map((tech) => (
+            <span key={tech} className="tech-badge">
               {tech}
             </span>
           ))}
         </div>
-
-        {/* Project Links */}
-        <div className="flex gap-3">
-          {hasGithub ? (
-            <motion.a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-dark-100 dark:bg-dark-700 text-dark-700 dark:text-dark-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-medium"
-            >
-              <Github size={16} />
-              Code
-            </motion.a>
-          ) : (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onMissingGithub(project.title);
-              }}
-              aria-label={`${project.title} source code is not accessible`}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-dark-100 dark:bg-dark-700 text-dark-700 dark:text-dark-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-medium"
-            >
-              <Github size={16} />
-              Code
-            </button>
-          )}
-
-          <motion.a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 text-sm font-medium"
-          >
-            <ExternalLink size={16} />
-            Live Demo
-          </motion.a>
+        <div className="mt-6">
+          <ProjectLinks project={project} />
         </div>
       </div>
-    </motion.div>
+    </motion.article>
+  );
+}
+
+function CompactProject({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: (index % 4) * 0.05 }}
+      viewport={{ once: true, margin: "-40px" }}
+      className="surface-card surface-card-hover overflow-hidden"
+    >
+      <div className="relative aspect-[4/3]">
+        <Image
+          src={project.image}
+          alt={`${project.title} — screenshot`}
+          fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover"
+        />
+      </div>
+      <div className="p-5">
+        <h4 className="font-semibold text-dark-900 dark:text-white">
+          {project.title}
+        </h4>
+        <p className="mt-1.5 text-sm text-dark-600 dark:text-dark-400 leading-relaxed">
+          {project.description}
+        </p>
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {project.tech.slice(0, 3).map((tech) => (
+            <span key={tech} className="tech-badge">
+              {tech}
+            </span>
+          ))}
+        </div>
+        <div className="mt-4">
+          <ProjectLinks project={project} />
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
 export default function ProjectsSection() {
-  const notifyMissingGithub = (title: string) => {
-    toast.warn(`Sorry, the source code for "${title}" is not accessible.`);
-  };
-
-  const appProjects: IProject[] = [
-    {
-      title: "Movies Cool",
-      description:
-        "Movies Cool is your ultimate destination for movie lovers. Discover the latest films, watch official trailers, and explore detailed information about your favorite movies. With a powerful search feature, you can easily find any film you’re looking for. Stay up to date with the newest releases, save movies to your personal list, and never miss out on what’s trending in the world of cinema",
-      image: moviesCool.src,
-      tech: [
-        "React Native",
-        "MongoDB",
-        "crypto-js",
-        "socket.io - client",
-        "axios",
-        "jwt",
-        "Passport.js",
-        "socket.io",
-        "schedule",
-        "swagger",
-        "websockets",
-        "prisma",
-        "cookie-parser",
-        "telegraf",
-        "prettier",
-      ],
-      github: "https://github.com/muhammadyusuf622",
-      live: "https://expo.dev/artifacts/eas/5GTWBmQM75NkSgyjg9Aegb.apk",
-      category: "Full Stack",
-    },
-  ];
-
-  const projects: IProject[] = [
-    {
-      title: "Ezguide",
-      description:
-        "An online learning platform offering structured courses, with certificates awarded upon successful completion of each course. Access to the platform is restricted and requires an authorized email and password provided by an administrator",
-      image: ezguide.src,
-      tech: [
-        "JavaScript",
-        "Node.js",
-        "Nest.js",
-        "NextJs",
-        "Stripe",
-        "MongoDB",
-        "pdf-kit",
-        "Cron-job",
-        "shadcn/ui",
-        "axios",
-        "jwt",
-        "swagger",
-        "schedule",
-        "cookie-parser",
-      ],
-      live: "https://ezguide.io/",
-      category: "Full Stack",
-    },
-
-    {
-      title: "LingoStep",
-      description:
-        "Learning English through video chats, public chats, typing exercises with popular books, and fun quizzes",
-      image: lingiStepImg.src,
-      tech: [
-        "JavaScript",
-        "Node.js",
-        "Nest.js",
-        "Parcel",
-        "MongoDB",
-        "crypto-js",
-        "socket.io - client",
-        "axios",
-        "jwt",
-        "Passport.js",
-        "socket.io",
-        "schedule",
-        "swagger",
-        "websockets",
-        "prisma",
-        "cookie-parser",
-        "telegraf",
-        "prettier",
-      ],
-      github: "https://github.com/muhammadyusuf622/LingoStep",
-      live: "https://lingostep.uz",
-      category: "Full Stack",
-    },
-    {
-      title: "The Weather",
-      description:
-        "Daily weather forecasts and 5-day forecasts, wallpapers that switch between day and night, dark mode, and the ability to set any city as default. Fully responsive design with dynamic backgrounds that change according to seasons and weather",
-      image: weatherImg.src,
-      tech: [
-        "FSD Architecture",
-        "OpenWeather API",
-        "React.js",
-        "TypeScript",
-        "vite",
-        "Tailwind Css",
-        "Redux Toolkit",
-        "React Query",
-        "axios",
-        "Framer Motion",
-        "React Hook Form",
-        "React Redux",
-      ],
-      github: "https://github.com/muhammadyusuf622/the-weather-project",
-      live: "https://the-weather-project-pi.vercel.app",
-      category: "Frontend",
-    },
-    {
-      title: "Twitting",
-      description:
-        "Twitting is a social media platform similar to Twitter, where users can like and save their favorite content, watch short videos, and comment on posts in real time. Each user can customize their profile, and the platform supports interactive features such as viewing liked videos and saving posts for later",
-      image: twittingImg.src,
-      tech: [
-        "Express.js",
-        "Ejs",
-        "CSS",
-        "MongoDB Atlas",
-        "bcrypt",
-        "socket.io",
-        "nodemailer",
-        "morgan",
-        "joi",
-        "JWT",
-        "check-disk-space",
-      ],
-      github: "https://github.com/muhammadyusuf622/Twitting-project",
-      live: "https://twitting.uz",
-      category: "Full Stack",
-    },
-    {
-      title: "Tamerlane Teach",
-      description:
-        "Tamerlane Teach is an online learning platform where users can create and share their courses, watch courses for free, and explore a variety of educational content. Each user can add titles and descriptions to their lessons and customize their profile, making it easy to share knowledge and learn from others",
-      image: temurlaneTeach.src,
-      tech: [
-        "Node.js",
-        "Express",
-        "parcel",
-        "HTML/CSS",
-        "CI/CD",
-        "crypto-js",
-        "bcrypt",
-        "body-parser",
-        "check-disk-space",
-        "cookie-parser",
-        "cors",
-        "jsonwebtoken",
-        "joi",
-        "method-override",
-        "MongoDB Atlas",
-        "morgan",
-        "multer",
-        "nodemailer",
-        "winston",
-      ],
-      github: "https://github.com/muhammadyusuf622/online-course-project",
-      live: "https://github.com/muhammadyusuf622/online-course-project",
-      category: "Full Stack",
-    },
-    {
-      title: "MDH Hospital",
-      description:
-        "MDH Hospital is an innovative healthcare platform designed to streamline communication between doctors and patients. Patients can easily book appointments online, receive timely reminders, and monitor their queue status directly through their profile. The platform also offers an emergency call feature with a single click for urgent medical assistance. Users have the flexibility to choose which doctor's appointment they want to schedule, ensuring personalized and convenient healthcare access",
-      image: mdhHospital.src,
-      tech: [
-        "Node.js",
-        "Nest.js",
-        "React.js",
-        "TypeScript",
-        "Vite",
-        "Styled Components",
-        "Sass",
-        "MUI",
-        "React Google Maps",
-        "axios",
-        "react-router",
-        "react-icons",
-        "swiper",
-        "JWT",
-        "passport.js",
-        "swagger",
-        "prisma",
-        "bcryptjs",
-        "cookie",
-        "validator",
-        "PostgreSQL",
-      ],
-      github: "https://github.com/muhammadyusuf622/MDH-Hospital",
-      live: "https://github.com/muhammadyusuf622/MDH-Hospital",
-      category: "Full Stack",
-    },
-    {
-      title: "Hotel",
-      description: `The HOTEL project is a comprehensive hotel management platform designed for both guests and staff. Guests can effortlessly book rooms, check room availability, track cleaning or maintenance
-       schedules, set their preferred cleaning times, order meals, and submit complaints online. They can also view their check-out time and manage their stay conveniently.
-The Admin Panel allows hotel administrators to monitor
- room status, track daily revenue, oversee guest check-ins and check-outs, and view detailed statistics on room usage and customer activity.
-The Director Panel provides a higher-level oversight, enabling directors to manage all branches, add or remove staff, control admin access, track branch revenues, monitor customer and employee status, and maintain complete operational control across the hotel chain`,
-      image: hotel.src,
-      tech: ["Next.js", "Typescript", "Ant Design"],
-      addUrl: [
-        {
-          href: "https://hotel-project2-one.vercel.app/admin",
-          title: "Admin Page",
-        },
-        {
-          href: "https://hotel-project2-one.vercel.app/derector",
-          title: "Derector Page",
-        },
-      ],
-      github: "https://github.com/muhammadyusuf622/hotel-project2",
-      live: "https://hotel-project2-one.vercel.app",
-      category: "Frontend",
-    },
-    {
-      title: "Code Museum",
-      description:
-        "Code Museum is a platform designed to share interesting and creative code snippets with others. The project allows developers to showcase unique coding ideas, learn from each other, and build a community around innovative solutions.",
-      image: codeMuseum.src,
-      tech: ["Node.js", "Nest.js", "Next.js"],
-      github: "https://github.com/TOTEM-ABU/CodeMuseum",
-      live: "https://code-musuem.vercel.app",
-      category: "Full-Stack",
-    },
-    {
-      title: "Dentist Project",
-      description: `This project enables customers to book dentist appointments in advance, reducing waiting times and ensuring timely access to dental services.`,
-      image: dentistImg.src,
-      tech: ["Next.js"],
-      addUrl: [
-        {
-          href: "https://dentist-project-opal.vercel.app/doctor",
-          title: "Doctors Landing Page",
-        },
-      ],
-      github: "https://github.com/muhammadyusuf622/dentist-project",
-      live: "https://dentist-project-opal.vercel.app",
-      category: "Frontend",
-    },
-    {
-      title: "The News 24",
-      description:
-        "Stay informed with News24, the leading source for breaking news from around the world and your country. Get breaking news, in-depth reports and real-time updates on politics, business, technology, sports and more",
-      image: news24Img.src,
-      tech: [
-        "Node.js",
-        "TypeScript",
-        "Nest.js",
-        "Next.js",
-        "Redux Toolkit",
-        "react-redux",
-        "react-query",
-        "tanstack/react-query",
-        "animate.css",
-        "lucide-react",
-        "passport.js",
-        "schedule",
-        "swagger",
-        "prisma",
-        "bcryptjs",
-      ],
-      github: "https://github.com/news24-project",
-      live: "https://googlenews24.vercel.app/",
-      category: "Full Stack",
-    },
-    {
-      title: "ASI Global IT",
-      description:
-        "ASI Global is a leading IT solutions, web and mobile applications, business automation, and tech consulting service. It offers competitive solutions with innovative products and a qualified team",
-      image: asiGlobalIt.src,
-      tech: [
-        "Node.js",
-        "TypeScript",
-        "Next.js",
-        "Tailwindcss",
-        "shadcn/UI",
-        "framer-motion",
-        "swiper",
-        "tailwind-merge",
-        "animate.css",
-        "lucide-react",
-        "class-variance-authority",
-      ],
-      github: "https://github.com/webgrade-company/germany-company",
-      live: "https://asiglobalit.com/",
-      category: "Frontend",
-    },
-  ];
-
   return (
     <div className="container-custom">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="mb-14 max-w-2xl"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-dark-900 dark:text-white mb-4">
-          My <span className="text-gradient">Projects</span>
-        </h2>
-        <p className="text-lg text-dark-600 dark:text-dark-400 max-w-2xl mx-auto">
-          Here are some of the projects I've built to showcase my skills and
-          passion. From full-stack applications to frontend projects, each
-          demonstrates my expertise in React, Node.js, TypeScript, and modern
-          web technologies.
+        <p className="section-kicker">Work</p>
+        <h2 className="section-heading">Featured projects</h2>
+        <p className="section-subtext mt-4">
+          A selection of full-stack products I&apos;ve designed, built, and
+          shipped end to end — from data model to deployment.
         </p>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={project.title}
-            project={project}
-            index={index}
-            imageMode="fill"
-            onMissingGithub={notifyMissingGithub}
-          />
+      <div className="space-y-20">
+        {featuredProjects.map((project, index) => (
+          <FeaturedProject key={project.title} project={project} index={index} />
         ))}
       </div>
 
-      <br />
-      <h2 className="text-4xl text-center font-bold">APP Projects</h2>
-      <br />
+      <div className="mt-24 mb-10">
+        <h3 className="text-xl font-semibold tracking-tight text-dark-900 dark:text-white">
+          More projects
+        </h3>
+      </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {appProjects.map((project, index) => (
-          <ProjectCard
-            key={project.title}
-            project={project}
-            index={index}
-            imageMode="fixed"
-            onMissingGithub={notifyMissingGithub}
-          />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {moreProjects.map((project, index) => (
+          <CompactProject key={project.title} project={project} index={index} />
         ))}
       </div>
 
-      {/* View More Button */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        viewport={{ once: true }}
-        className="text-center mt-12"
-      >
-        <motion.a
+      <div className="mt-14 text-center">
+        <a
           href="https://github.com/muhammadyusuf622"
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="btn-secondary inline-flex items-center gap-2"
+          className="btn-secondary focus-ring inline-flex"
         >
-          <Github size={20} />
-          View More on GitHub
-        </motion.a>
-      </motion.div>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={3500}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-        theme="colored"
-        style={{ top: "5.5rem" }}
-      />
+          <Github size={18} />
+          View more on GitHub
+        </a>
+      </div>
     </div>
   );
 }
