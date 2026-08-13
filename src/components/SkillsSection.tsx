@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Database, Settings, Palette } from "lucide-react";
+import { Code, Database, Settings, Palette, CreditCard } from "lucide-react";
 
 export default function SkillsSection() {
   const skillCategories = [
@@ -35,6 +35,11 @@ export default function SkillsSection() {
         { name: "Material UI", level: 60, color: "from-cyan-500 to-cyan-600" },
         { name: "Ant Design", level: 70, color: "from-blue-600 to-blue-700" },
         { name: "Tailwind CSS", level: 95, color: "from-cyan-500 to-cyan-600" },
+        {
+          name: "SHADCN/UI",
+          level: 100,
+          color: "from-green-600 to-green-700",
+        },
         {
           name: "Styled-components",
           level: 90,
@@ -106,6 +111,13 @@ export default function SkillsSection() {
         { name: "SSH Key", level: 90, color: "from-gray-500 to-gray-600" },
       ],
     },
+    {
+      title: "Payment systems",
+      icon: <CreditCard size={24} />,
+      skills: [
+        { name: "Stripe", level: 90, color: "from-orange-600 to-orange-700" },
+      ],
+    },
   ];
 
   return (
@@ -133,7 +145,12 @@ export default function SkillsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: categoryIndex * 0.2 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-dark-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+            className={
+              skillCategories.length % 3 === 1 &&
+              categoryIndex === skillCategories.length - 1
+                ? "bg-white dark:bg-dark-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 lg:col-start-2"
+                : "bg-white dark:bg-dark-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+            }
           >
             {/* Category Header */}
             <div className="flex items-center gap-3 mb-6">
