@@ -75,8 +75,8 @@ export default function HeroSection() {
             </button>
 
             <a
-              href="/MuhammadYusufResume.pdf"
-              download="MuhammadYusufResume.pdf"
+              href="/Muhammad_Yusuf_Resume.pdf"
+              download="Muhammad_Yusuf_Resume.pdf"
               className="btn-secondary focus-ring"
             >
               Download Resume

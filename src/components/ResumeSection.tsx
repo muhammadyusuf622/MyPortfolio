@@ -76,8 +76,8 @@ export default function ResumeSection() {
             </div>
 
             <a
-              href="/MuhammadYusufResume.pdf"
-              download="MuhammadYusufResume.pdf"
+              href="/Muhammad_Yusuf_Resume.pdf"
+              download="Muhammad_Yusuf_Resume.pdf"
               className="btn-primary focus-ring w-full"
             >
               <Download size={18} />

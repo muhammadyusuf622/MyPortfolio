@@ -111,7 +111,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/MuhammadYusufResume.pdf",
+        source: "/Muhammad_Yusuf_Resume.pdf",
         headers: [
           {
             key: "Cache-Control",
